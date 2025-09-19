@@ -10,7 +10,8 @@
     mitigate overflow. 
 */
 
-#pragma once
+#ifndef FX_H
+#define FX_H
 
 #include <stdint.h>
 
@@ -89,3 +90,6 @@ FX_INLINE fx32 fx32_ceil(fx32 f) {
 FX_INLINE fx32 fx32_floor(fx32 f) {
     return (f & ~FX32_MASK);
 }
+
+
+#endif // FX_H
