@@ -46,5 +46,12 @@ int main(int argc, char** argv) {
     FX_TEST("fx32 division",
         fx32_to_float(fx32_div(fx, fx1)) == (5.0f / 2.0f));
 
+    fx = fx32_make(1, 128); // 1.5
+    FX_TEST("fx32 floor",
+        fx32_resolve(fx32_floor(fx)) == 1);
+
+    FX_TEST("fx32 ceil",
+        fx32_resolve(fx32_ceil(fx)) == 2);
+
     return 0;
 }
