@@ -1,18 +1,4 @@
-/*  Fixed-point arithmetic implementation.
-
-    Use `#define FX_NO_INLINE` to remove function inline hints. 
-
-    Use `#define FX32_SHIFT_BITS number_of_bits` to define the amount of bits used
-    for the fractional part (default 8 bits).
-
-    Use `#define FX32_QUANTIZE_LIMIT` to define the upper limit of the fractional
-    part's quantized range, default 1000 (affects `f` maximal in `fx32_make`, 
-    avoid exceeding 2^16). 
-
-    Use `#define FX32_FAST` before including this header to avoid
-    up-casting during multiplication/division operations to
-    mitigate overflow. 
-*/
+/*  Fixed-point arithmetic implementation. */
 
 #ifndef FX_H
 #define FX_H
@@ -75,7 +61,7 @@ FX_INLINE fx32 fx32_sub(fx32 a, fx32 b) {
 
 // Multiply fixed-point number `a` by `b`
 FX_INLINE fx32 fx32_mul(fx32 a, fx32 b) {
-    #ifdef FX32_FAST
+    #ifdef FX_FAST
         return ((a * b) >> FX32_SHIFT_BITS);
     #else
         return (fx32)(((uint64_t)a * b) >> FX32_SHIFT_BITS);
@@ -84,7 +70,7 @@ FX_INLINE fx32 fx32_mul(fx32 a, fx32 b) {
 
 // Divide fixed-point number `a` by `b`
 FX_INLINE fx32 fx32_div(fx32 a, fx32 b) {
-    #ifdef FX32_FAST
+    #ifdef FX_FAST
         return ((a << FX32_SHIFT_BITS) / b);
     #else
         return (fx32)(((uint64_t)a << FX32_SHIFT_BITS) / b);
